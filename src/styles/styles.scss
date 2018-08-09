@@ -12,3 +12,8 @@ body {
   height: 100%;
   display: flex;
 }
+
+.compZoom {
+  transform-origin: 0 0;
+  transition: all 300ms ease-in-out;
+}
