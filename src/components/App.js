@@ -1,88 +1,57 @@
 import React from 'react';
 import InputCustom from './InputCustom';
-// import createPalette from 'material-ui/styles/createPalette';
-// import createMuiTheme from 'material-ui/styles/createMuiTheme';
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-// import withStyles from 'material-ui/styles/withStyles';
-// import { grey, orange, amber, red } from 'material-ui/colors';
-// import Master from './Master';
-// import { styles } from '../styles/styles';
-
-// import { withRouter } from 'react-router-dom';
-
-// const customTheme = createMuiTheme({
-//   overrides: {
-//     MuiListItem: {
-//       gutters: {
-//         '@media (min-width:600px)': {
-//           paddingLeft: '16px',
-//           paddingRight: '16px'
-//         }
-//       }
-//     }
-//   },
-//   palette: createPalette({
-//     "primary": orange,
-//     "accent": grey,
-//     "secondary": amber,
-//     "error": red,
-//     "type": "light"
-//   })
-// });
+import TableCustom from './TableCustom';
 
 class App extends React.Component {
   state = {
-    name: "",
-    names: []
-  };
-
-  onChange = event => {
-    this.setState({name: event.target.value});
+    title: 'Demo App1',
+    inputValue: '',
+    bodyRows: [],
+    headColumns: [{name: 'Id'}, {name: 'Name'}],
+    index: 0
   };
 
   onClick = () => {
-    this.setState(state => { return { names: [...state.names, state.name] }; });
+    let index = this.state.index;
+
+    this.setState( {
+      bodyRows: [...this.state.bodyRows, { columns: [index++, this.state.inputValue] }],
+      index
+    });
+  };
+
+  onChange = event => {
+    this.setState( { inputValue: event.target.value } );
   };
 
   render() {
     return (
-      [
-        <div id="sidebar" key="1" style={{backgroundColor: 'lightblue', width: '100px'}}/>,
-        <div id="pageContent" key="2" style={{width:'100%', display: 'flex', flexDirection: 'column', flexWrap: 'wrap', margin: '8px'}}>
-          <h1 style={{width: '100%'}}>Page Title</h1>
-          <div style={{width: '100%', display: 'flex', alignItems: 'flex-end'}}>
+      <div style={{ height: '100%', width: '100%', display: 'flex', flexFlow: 'row nowrap' }}>
+        <div
+          id="sidebar"
+          style={{ width: '100px', height: '100%', backgroundColor: 'lightblue' }} />
+        <div
+          id="app-content"
+          style={{ display: 'flex', height: '100%', flexDirection: 'column', flexWrap: 'wrap', width: '100%', margin: '8px' }}>
+          <h1>{this.state.title}</h1>
+          <div>
             <InputCustom
-              id={"name"}
-              label={"Name"}
-              value={this.state.name}
-              onChange={this.onChange}
+              label="Name"
+              inputCustomValue={this.state.inputValue}
+              inputCustomOnChange={this.onChange}
             />
-            <button style={{marginLeft: '10px', height: '30px'}} onClick={this.onClick}>Click me!</button>
+            <button onClick={this.onClick} >Click Me!</button>
           </div>
-          <div style={{width: '100%', marginTop: '10px'}}>
-            <table>
-              <tr>
-                <th>Id</th>
-                <th>Name</th>
-              </tr>
-              {this.state.names.map((name, i) => {
-                return (
-                  <tr key={i}>
-                    <td>{i}</td>
-                    <td>{name}</td>
-                  </tr>
-                );
-              })}
-            </table>
+          <div>
+            <TableCustom
+              headColumns={this.state.headColumns}
+              bodyRows={this.state.bodyRows}
+            />
           </div>
         </div>
-      ]
-      //<MuiThemeProvider theme={customTheme} >
-        //<Master {...this.props}/>
-      //</MuiThemeProvider>
+      </div>
     );
   }
 }
 
 export default App;
-//export default withRouter(withStyles(styles, { withTheme: true })(App));

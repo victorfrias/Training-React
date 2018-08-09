@@ -1,21 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const InputCustom = props => {
+/**
+ * Custom demo input
+ * @param {string} label - The label content.
+ * @param {function(event: object) => void} inputCustomOnChange - Callback fired when the value is changed.
+ * @param {string | number} inputCustomValue - The value of the Input element, required for a controlled component.
+ */
+const InputCustom = ({label, inputCustomValue, inputCustomOnChange}) => {
   return (
-    <div style={props.style}>
-      <label style={{display: 'block'}} htmlFor={props.id}>{props.label}</label>
-      <input type="text" id={props.id} value={props.value} onChange={props.onChange} />
+    <div>
+      <label style={{display: 'block'}}>
+        {label}
+      </label>
+      <input
+        value={inputCustomValue}
+        onChange={inputCustomOnChange}
+      />
     </div>
   );
 };
 
 InputCustom.propTypes = {
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  onChange: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  style: PropTypes.object
+  inputCustomValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+  inputCustomOnChange: PropTypes.func.isRequired
 };
 
 export default InputCustom;
