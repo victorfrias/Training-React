@@ -1,8 +1,9 @@
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import App from './App';
-import UserForm from './forms/UserForm';
+import UserPage from './containers/UserPage';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 class Master extends React.Component {
   state = {
@@ -41,7 +42,7 @@ class Master extends React.Component {
             }}/>
             <Route
               path="/users"
-              render={() => (<UserForm />)}
+              render={() => (<UserPage />)}
             />
           </Switch>
         </div>
@@ -54,4 +55,4 @@ Master.propTypes = {
   history: PropTypes.object
 };
 
-export default withRouter(Master);
+export default withRouter(connect()(Master));
