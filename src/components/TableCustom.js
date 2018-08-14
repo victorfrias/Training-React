@@ -40,8 +40,8 @@ class TableCustom extends React.Component {
 }
 
 TableCustom.propTypes = {
-  headColumns: PropTypes.object.isRequired,
-  bodyRows: PropTypes.object.isRequired
+  headColumns: PropTypes.array.isRequired,
+  bodyRows: PropTypes.array.isRequired
 };
 
 export default TableCustom;

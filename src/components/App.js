@@ -1,22 +1,24 @@
 import React from 'react';
 import InputCustom from './InputCustom';
 import TableCustom from './TableCustom';
+import PropTypes from 'prop-types';
 
 class App extends React.Component {
   state = {
-    title: 'Demo App1',
     inputValue: '',
     bodyRows: [],
     headColumns: [{name: 'Id'}, {name: 'Name'}],
     index: 0
   };
 
-  onClick = () => {
-    let index = this.state.index;
+  goToUsers = () => {
+    this.props.history.push('/users');
+  };
 
-    this.setState( {
-      bodyRows: [...this.state.bodyRows, { columns: [index++, this.state.inputValue] }],
-      index
+  onClick = () => {
+    const bodyRows = this.state.bodyRows;
+    this.setState({
+      bodyRows: [...bodyRows, { columns: [ bodyRows.length.toString(), this.state.inputValue ] }]
     });
   };
 
@@ -26,32 +28,39 @@ class App extends React.Component {
 
   render() {
     return (
-      <div style={{ height: '100%', width: '100%', display: 'flex', flexFlow: 'row nowrap' }}>
-        <div
-          id="sidebar"
-          style={{ width: '100px', height: '100%', backgroundColor: 'lightblue' }} />
-        <div
-          id="app-content"
-          style={{ display: 'flex', height: '100%', flexDirection: 'column', flexWrap: 'wrap', width: '100%', margin: '8px' }}>
-          <h1>{this.state.title}</h1>
-          <div>
-            <InputCustom
-              label="Name"
-              inputCustomValue={this.state.inputValue}
-              inputCustomOnChange={this.onChange}
-            />
-            <button onClick={this.onClick} >Click Me!</button>
-          </div>
-          <div>
-            <TableCustom
-              headColumns={this.state.headColumns}
-              bodyRows={this.state.bodyRows}
-            />
-          </div>
+      <div className="container">
+        <div className="flexend">
+          <InputCustom
+            label="Name"
+            inputCustomValue={this.state.inputValue}
+            inputCustomOnChange={this.onChange}
+          />
+          <button
+            onClick={this.onClick}
+            style={{height: '30px', marginLeft: '5px'}}>
+            Add Typed Item
+          </button>
+        </div>
+        <div style={{marginTop: '8px'}}>
+          <TableCustom
+            headColumns={this.state.headColumns}
+            bodyRows={this.state.bodyRows}
+          />
+        </div>
+        <div style={{marginTop: '8px'}}>
+          <button
+            onClick={this.goToUsers}
+            style={{height: '30px'}}>
+            Users
+          </button>
         </div>
       </div>
     );
   }
 }
+
+App.propTypes = {
+  history: PropTypes.object
+};
 
 export default App;
