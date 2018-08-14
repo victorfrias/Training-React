@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 /**
  * Custom demo TableRow
- * @param {array: { columns: [] }} columns - Items array
+ * @param {array: string} columns - Items array
  */
 class TableRowCustom extends React.Component {
 
@@ -28,7 +28,7 @@ class TableRowCustom extends React.Component {
 }
 
 TableRowCustom.propTypes = {
-  columns: PropTypes.object.isRequired
+  columns: PropTypes.array.isRequired
 };
 
 export default TableRowCustom;

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Zoom extends React.Component {
   state = {
@@ -33,5 +34,10 @@ class Zoom extends React.Component {
     );
   }
 }
+
+Zoom.propTypes = {
+  in: PropTypes.number,
+  theComponent: PropTypes.element
+};
 
 export default Zoom;

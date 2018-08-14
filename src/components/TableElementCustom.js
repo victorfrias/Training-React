@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 
 /**
  * Custom demo TableElement
- * @param {array: { columns: [] }} key - Key Value
- * * @param {array: { columns: [] }} itemName - Name Value
+ * @param {string} itemName - Key Value
  */
 class TableElementCustom extends React.Component {
-
   state = {
     itemOpac: 0.0
   }
@@ -23,18 +21,16 @@ class TableElementCustom extends React.Component {
   render() {
     return (
       <td
-        key={this.props.key}
         className="compFade"
         style={{opacity: this.state.itemOpac}}
       >
-         {this.props.itemName}
-        </td>
+        {this.props.itemName}
+      </td>
     );
   }
 }
 
 TableElementCustom.propTypes = {
-  key: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   itemName: PropTypes.string.isRequired
 };
 

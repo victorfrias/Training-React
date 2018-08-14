@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Fade extends React.Component {
   state = {
@@ -31,5 +32,10 @@ class Fade extends React.Component {
     );
   }
 }
+
+Fade.propTypes = {
+  in: PropTypes.number,
+  theComponent: PropTypes.element
+};
 
 export default Fade;
