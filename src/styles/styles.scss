@@ -17,6 +17,11 @@ body {
   transition: all 300ms ease-in-out
 }
 
+.compZoom {
+  transform-origin: 0 0;
+  transition: all 300ms ease-in-out;
+}
+
 .container {
   display: flex;
   flex-flow: column;
