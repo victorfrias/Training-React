@@ -1,6 +1,6 @@
 
 //Mock API endpoint
-export const API_BASE_ADDRESS = "http://5b7488dda583740014190957.mockapi.io/reacting/";
+export const API_BASE_ADDRESS = "https://5b7488dda583740014190957.mockapi.io/reacting/";
 
 //Items
 //http://5b7488dda583740014190957.mockapi.io/reacting/items

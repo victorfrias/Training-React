@@ -4,17 +4,29 @@ import InputCustom from '../common/InputCustom';
 import TableCustom from '../common/TableCustom';
 
 class UserForm extends React.Component {
+  state = {
+    items: []
+  };
+
+  usersLoading = false;
+
   componentDidMount() {
-    //this.props.userActions.usersLoading(true);
+    this.props.userActions.fetchUsersThunk();
   }
 
   componentWillReceiveProps(nextProps) {
     debugger;
+    if(!this.usersLoading && nextProps.users.isLoading)
+      this.usersLoading = true;
+
+    if(this.usersLoading && !nextProps.users.isLoading){
+      this.usersLoading = false;
+      this.setState({items: nextProps.users.items});
+    }
   }
 
   onClick = () => {
     debugger;
-    this.props.userActions.fetchUsersThunk();
   }
 
   render() {
@@ -25,8 +37,24 @@ class UserForm extends React.Component {
           <button onClick={this.onClick}>Add User</button>
         </div>
         <div>
-          <TableCustom>
-          </TableCustom>
+          <table>
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.items.map(item => {
+                return (
+                  <tr>
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                  </tr>)
+              })
+              }
+            </tbody>
+          </table>
         </div>
         <div>
           <Link to="/">

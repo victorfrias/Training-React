@@ -8,23 +8,23 @@ export const usersLoading = (isLoading) => {
   };
 };
 
-export const usersFetchSuccess = (items) => {
+export function usersFetchSuccess(items) {
   return {
     type: USERS_FETCH_SUCCESS,
     payload: items
   };
-};
+}
 
 export function fetchUsersThunk () {
-  debugger;
   return (dispatch) => {
-    //dispatch(usersLoading(true));
+    dispatch(usersLoading(true));
 
     performFetch('items', { method: 'GET' })
       .then(result => {
-        debugger;
         dispatch(usersFetchSuccess(result));
       })
-      .catch(error => {debugger;});
+      .catch(error => {
+        console.log(error);
+      });
   };
-};
+}
