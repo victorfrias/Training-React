@@ -1,7 +1,7 @@
 import React from 'react';
-import InputCustom from './InputCustom';
-import TableCustom from './TableCustom';
 import PropTypes from 'prop-types';
+import InputCustom from './common/InputCustom';
+import TableCustom from './common/TableCustom';
 
 class App extends React.Component {
   state = {

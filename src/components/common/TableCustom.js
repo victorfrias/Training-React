@@ -14,7 +14,7 @@ class TableCustom extends React.Component {
         <thead>
           <tr>
           {
-            this.props.headColumns.map((content, i) => {
+            this.props.headColumns !== undefined && this.props.headColumns.map((content, i) => {
               return (
               <th key={i}>{content.name}</th>
               );
@@ -24,7 +24,7 @@ class TableCustom extends React.Component {
         </thead>
         <tbody>
           {
-            this.props.bodyRows.map((bodyRow, i) => {
+            this.props.bodyRows !== undefined && this.props.bodyRows.map((bodyRow, i) => {
               return (
                 <TableRowCustom
                   key={i}

@@ -6,7 +6,17 @@ export const API_BASE_ADDRESS = "http://5b7488dda583740014190957.mockapi.io/reac
 //http://5b7488dda583740014190957.mockapi.io/reacting/items
 //Items:id
 //http://5b7488dda583740014190957.mockapi.io/reacting/items/{id}
-
 export function performFetch(url, init) {
-  return fetch(`${API_BASE_ADDRESS}${url}`, HELLO);      
+  debugger;
+  let objInit = { headers: new Headers({'Content-Type': 'application/json'}), method: 'GET' };
+  return fetch(`${API_BASE_ADDRESS}${url}`, objInit)
+      .then((response) => {
+        debugger;
+        if(!response.ok) {
+          throw Error(response.statusText);
+        }
+
+        return response;
+      })
+      .then((response) => response.json());
 }
