@@ -1,4 +1,4 @@
-import { USERS_LOADING, USERS_FETCH_SUCCESS } from '../constants/actionTypes';
+import { USERS_LOADING, USERS_FETCH_SUCCESS,USERS_POSTING,USERS_POST_SUCCESS } from '../constants/actionTypes';
 import { performFetch } from '../constants/apiBase';
 
 export const usersLoading = (isLoading) => {
@@ -8,10 +8,27 @@ export const usersLoading = (isLoading) => {
   };
 };
 
+export const usersPosting = (isPosting) => {
+  debugger;
+
+  return {
+    type: USERS_POSTING,
+    payload: isPosting
+  };
+};
+
 export function usersFetchSuccess(items) {
   return {
     type: USERS_FETCH_SUCCESS,
     payload: items
+  };
+}
+
+export function usersPostSuccess(item) {
+  debugger;
+  return {
+    type: USERS_POST_SUCCESS,
+    payload: item
   };
 }
 
@@ -28,3 +45,18 @@ export function fetchUsersThunk () {
       });
   };
 }
+
+export function postUsersThunk (objItem) {
+  return (dispatch) => {
+    dispatch(usersPosting(true));
+
+    performFetch('items', { method: 'POST', body : JSON.stringify( objItem ) })
+      .then(item => {
+        dispatch(usersPostSuccess(item));
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+}
+

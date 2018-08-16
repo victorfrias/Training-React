@@ -5,17 +5,18 @@ import TableCustom from '../common/TableCustom';
 
 class UserForm extends React.Component {
   state = {
-    items: []
+    items: [],
+    inputValue : ''
   };
 
   usersLoading = false;
+  userPosting = false;
 
   componentDidMount() {
     this.props.userActions.fetchUsersThunk();
   }
 
   componentWillReceiveProps(nextProps) {
-    debugger;
     if(!this.usersLoading && nextProps.users.isLoading)
       this.usersLoading = true;
 
@@ -23,17 +24,36 @@ class UserForm extends React.Component {
       this.usersLoading = false;
       this.setState({items: nextProps.users.items});
     }
+
+    debugger;
+    if(!this.userPosting && nextProps.users.isPosting)
+      this.userPosting = true;
+
+    if(this.userPosting && !nextProps.users.isPosting){
+      this.userPosting = false;
+      this.setState({items: nextProps.users.items});
+    }
+  }
+
+  onChange = event =>{
+    this.setState({inputValue : event.target.value});
   }
 
   onClick = () => {
-    debugger;
+    this.props.userActions.postUsersThunk( { name : this.state.inputValue });
+    this.setState({inputValue : ''});
   }
 
   render() {
     return (
       <div className="container">
         <div>
-          <InputCustom />
+          <InputCustom
+            label = {'Usuário'}
+            inputCustomValue={this.state.inputValue}
+            inputCustomOnChange={this.onChange}
+
+          />
           <button onClick={this.onClick}>Add User</button>
         </div>
         <div>
