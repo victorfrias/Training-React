@@ -14,12 +14,12 @@ body {
 }
 
 .compFade {
-  transition: all 300ms ease-in-out
+  transition: all 600ms ease-in-out
 }
 
 .compZoom {
   transform-origin: 0 0;
-  transition: all 300ms ease-in-out;
+  transition: transform 300ms ease-in-out;
 }
 
 .container {

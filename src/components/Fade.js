@@ -15,18 +15,18 @@ class Fade extends React.Component {
     this.handleIn(nextProps.in);
   }
 
-  handleIn = (inValue) => {
+  handleIn = (inValue) => {        
     setTimeout(
       () => this.setState({
         compOpac: inValue ? 1.0 : 0.0
       })
-      ,100
+      , 100
     );
   }
 
   render() {
     return (
-      <div className="compZoom" style={{opacity: this.state.compOpac}}>
+      <div className="compFade" style={{opacity: this.state.compOpac}}>
         {this.props.theComponent}
       </div>
     );

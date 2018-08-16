@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import InputCustom from '../common/InputCustom';
 import TableCustom from '../common/TableCustom';
+import SuperTableCustom from '../common/SuperTableCustom';
 
 class UserForm extends React.Component {
   state = {
@@ -14,8 +15,7 @@ class UserForm extends React.Component {
     this.props.userActions.fetchUsersThunk();
   }
 
-  componentWillReceiveProps(nextProps) {
-    debugger;
+  componentWillReceiveProps(nextProps) {    
     if(!this.usersLoading && nextProps.users.isLoading)
       this.usersLoading = true;
 
@@ -26,7 +26,7 @@ class UserForm extends React.Component {
   }
 
   onClick = () => {
-    debugger;
+    
   }
 
   render() {
@@ -37,7 +37,7 @@ class UserForm extends React.Component {
           <button onClick={this.onClick}>Add User</button>
         </div>
         <div>
-          <table>
+          {/* <table>
             <thead>
               <tr>
                 <th>Id</th>
@@ -50,11 +50,24 @@ class UserForm extends React.Component {
                   <tr>
                     <td>{item.id}</td>
                     <td>{item.name}</td>
-                  </tr>)
+                  </tr>
+                  )
               })
               }
             </tbody>
-          </table>
+          </table> */}
+          <SuperTableCustom
+            heads={['Id', 'ADate', 'Name', 'Avatar']}
+            // items={
+            //   [
+            //     //[['1', '2'], ['3','4']]
+            //     this.state.items.map(item => {
+            //       [item.id, item.name]
+            //     })
+            //   ]
+            // }
+            items={this.state.items}
+          />
         </div>
         <div>
           <Link to="/">
