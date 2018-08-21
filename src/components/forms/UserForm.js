@@ -1,21 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import InputCustom from '../common/InputCustom';
-import TableCustom from '../common/TableCustom';
 import SuperTableCustom from '../common/SuperTableCustom';
 
 class UserForm extends React.Component {
-  state = {
-    items: []
+  state ={
+    items: [],
+    inputValue: ''
   };
 
-  usersLoading = false;
-
   componentDidMount() {
-    this.props.userActions.fetchUsersThunk();
+    this.props.userActions.getUsersSaga();
   }
 
-  componentWillReceiveProps(nextProps) {    
+  componentWillReceiveProps(nextProps) {
     if(!this.usersLoading && nextProps.users.isLoading)
       this.usersLoading = true;
 
@@ -23,49 +22,41 @@ class UserForm extends React.Component {
       this.usersLoading = false;
       this.setState({items: nextProps.users.items});
     }
+
+    if(!this.usersPosting && nextProps.users.isPosting)
+      this.usersPosting = true;
+
+    if(this.usersPosting && !nextProps.users.isPosting){
+      this.usersPosting = false;
+      this.setState({items: nextProps.users.items.slice(0)});
+    }
   }
 
+  usersLoading = false;
+  usersPosting = false;
+
   onClick = () => {
-    
-  }
+    this.props.userActions.postUserThunk({ name: this.state.inputValue });
+  };
+
+  onChange = (event) => {
+    this.setState({ inputValue: event.target.value });
+  };
 
   render() {
     return (
       <div className="container">
-        <div>
-          <InputCustom />
-          <button onClick={this.onClick}>Add User</button>
+        <div className="flexend">
+          <InputCustom
+            label="New name:"
+            inputCustomValue={this.state.inputValue}
+            inputCustomOnChange={this.onChange}
+          />
+          <button onClick={this.onClick} style={{height: '25px', marginLeft: '5px'}}>Add User</button>
         </div>
         <div>
-          {/* <table>
-            <thead>
-              <tr>
-                <th>Id</th>
-                <th>Name</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.items.map(item => {
-                return (
-                  <tr>
-                    <td>{item.id}</td>
-                    <td>{item.name}</td>
-                  </tr>
-                  )
-              })
-              }
-            </tbody>
-          </table> */}
           <SuperTableCustom
             heads={['Id', 'ADate', 'Name', 'Avatar']}
-            // items={
-            //   [
-            //     //[['1', '2'], ['3','4']]
-            //     this.state.items.map(item => {
-            //       [item.id, item.name]
-            //     })
-            //   ]
-            // }
             items={this.state.items}
           />
         </div>
@@ -78,5 +69,10 @@ class UserForm extends React.Component {
     );
   }
 }
+
+UserForm.propTypes = {
+  users: PropTypes.object,
+  userActions: PropTypes.object
+};
 
 export default UserForm;

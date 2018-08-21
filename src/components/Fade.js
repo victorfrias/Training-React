@@ -15,7 +15,7 @@ class Fade extends React.Component {
     this.handleIn(nextProps.in);
   }
 
-  handleIn = (inValue) => {        
+  handleIn = (inValue) => {
     setTimeout(
       () => this.setState({
         compOpac: inValue ? 1.0 : 0.0
@@ -34,8 +34,8 @@ class Fade extends React.Component {
 }
 
 Fade.propTypes = {
-  in: PropTypes.number,
-  theComponent: PropTypes.element
+  in: PropTypes.bool,
+  theComponent: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
 };
 
 export default Fade;

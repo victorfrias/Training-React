@@ -12,6 +12,7 @@ class Master extends React.Component {
 
   componentDidMount() {
     this.props.history.listen(this.routeWillChange);
+    this.routeWillChange(window.location);
   }
 
   routeWillChange = (route) => {
